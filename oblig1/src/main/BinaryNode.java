@@ -6,6 +6,10 @@ public class BinaryNode {
     BinaryNode left;
     BinaryNode right;
 
+    BinaryNode(String value){
+        this.value = value;
+    }
+
 }
 
 
