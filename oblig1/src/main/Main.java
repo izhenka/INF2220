@@ -24,17 +24,29 @@ public class Main {
     public static void printOutStatistics(){
         System.out.println("\n****** Statistics ******");
         System.out.println("Tree depth: " + binaryTree.getHeight());
+        System.out.println("---------------------------");
 
-        System.out.println("Nodes per depth: ---------");
+        System.out.println("Nodes per depth:");
         int[] nodesPerDepth = binaryTree.getNodesPerDepth();
         int n=0;
+        int nodesCount = 0;
+        int sumDepth = 0;
         for (int nodes: nodesPerDepth
              ) {
             System.out.println("Depth " + n + ": " + nodes);
             n++;
+            nodesCount += nodes;
+            sumDepth += n*nodes;
         }
         System.out.println("---------------------------");
 
+        System.out.println("Average depth: " + (sumDepth/nodesCount));
+        System.out.println("---------------------------");
+
+
+        System.out.println("First word: " + binaryTree.getMin());
+        System.out.println("Lasr word: " + binaryTree.getMax());
+        System.out.println("---------------------------");
 
     }
 
@@ -60,7 +72,4 @@ public class Main {
             binaryTree.insert(new BinaryNode(scanner.nextLine()));
         }
     }
-
-
-
 }

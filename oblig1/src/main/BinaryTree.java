@@ -53,11 +53,30 @@ public class BinaryTree {
         }
     }
 
-
-
     public int getChildrenOfChildrenCount(BinaryNode node){
         return  (node.left == null ? 0 : node.right.getDirectChildrenCount())
                 + (node.left == null ? 0 : node.right.getDirectChildrenCount());
     }
+
+    public String getMin(){
+        BinaryNode curNode = root;
+        String result = null;
+        while (curNode != null){
+            result = curNode.value;
+            curNode = curNode.left;
+        }
+        return result;
+    }
+
+    public String getMax(){
+        BinaryNode curNode = root;
+        String result = null;
+        while (curNode != null){
+            result = curNode.value;
+            curNode = curNode.right;
+        }
+        return result;
+    }
+
 
 }
