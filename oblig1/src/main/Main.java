@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static BinaryTree binaryTree = new BinaryTree();
+
     public static void main(String[] args) {
         try {
             loadDictionary("dictionary.txt");
@@ -15,9 +17,14 @@ public class Main {
         }
 
         menu();
+        printOutStatistics();
     }
 
 
+    public static void printOutStatistics(){
+        System.out.println("\n****** Statistics ******");
+        System.out.println("Tree depth: " + binaryTree.getHeight());
+    }
 
     public static void menu(){
 
@@ -39,12 +46,10 @@ public class Main {
 
         int n = 0;
         while (scanner.hasNextLine()) {
-//            System.out.println(scanner.nextLine());
-            scanner.nextLine();
+            binaryTree.insert(new BinaryNode(scanner.nextLine()));
             n++;
         }
 
-        System.out.println(n);
 
 
     }
