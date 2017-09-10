@@ -24,6 +24,18 @@ public class Main {
     public static void printOutStatistics(){
         System.out.println("\n****** Statistics ******");
         System.out.println("Tree depth: " + binaryTree.getHeight());
+
+        System.out.println("Nodes per depth: ---------");
+        int[] nodesPerDepth = binaryTree.getNodesPerDepth();
+        int n=0;
+        for (int nodes: nodesPerDepth
+             ) {
+            System.out.println("Depth " + n + ": " + nodes);
+            n++;
+        }
+        System.out.println("---------------------------");
+
+
     }
 
     public static void menu(){
@@ -44,15 +56,11 @@ public class Main {
         File file = new File(filename);
         Scanner scanner = new Scanner(file);
 
-        int n = 0;
         while (scanner.hasNextLine()) {
             binaryTree.insert(new BinaryNode(scanner.nextLine()));
-            n++;
         }
-
-
-
     }
+
 
 
 }

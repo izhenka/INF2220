@@ -35,7 +35,6 @@ public class BinaryNode {
         if (isLeafNode()) {
             return 0;
         }
-
         return Math.max(
                 (left == null ? 0 : left.getHeight()),
                 (right == null ? 0 : right.getHeight())
@@ -45,6 +44,11 @@ public class BinaryNode {
     public Boolean isLeafNode(){
         return (left == null && right == null);
     }
+
+    public int getDirectChildrenCount(){
+        return  (left == null ? 0 : 1) + (right == null ? 0 : 1);
+    }
+
 
 
 }
