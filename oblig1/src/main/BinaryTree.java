@@ -78,5 +78,12 @@ public class BinaryTree {
         return result;
     }
 
+    public String find(String value){
+        if(root==null){
+            return null;
+        }
+        return root.find(value);
+    }
+
 
 }

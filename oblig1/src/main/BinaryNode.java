@@ -26,8 +26,6 @@ public class BinaryNode {
                 right = node;
             }
         }
-
-
     }
 
 
@@ -49,8 +47,19 @@ public class BinaryNode {
         return  (left == null ? 0 : 1) + (right == null ? 0 : 1);
     }
 
-
-
+    public String find(String value){
+        if(value.equals(this.value)){
+            return value;
+        }
+        if (isLeafNode()){
+            return null;
+        }
+        if(value.compareTo(this.value) < 0){
+            return (left != null ? left.find(value) : null);
+        }else{
+            return (right != null ? right.find(value) : null);
+        }
+    }
 }
 
 

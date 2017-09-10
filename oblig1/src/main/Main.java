@@ -55,10 +55,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
-        while(!input.equals("q")){
+        while(true){
             System.out.println("Type a word:");
             input = scanner.nextLine();
-            System.out.println("You are a " + input + "!");
+            if (input.equals("q")){
+                break;
+            }
+            System.out.println(binaryTree.find(input));
+
         }
     }
 
