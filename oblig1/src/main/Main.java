@@ -45,7 +45,7 @@ public class Main {
 
 
         System.out.println("First word: " + binaryTree.getMin());
-        System.out.println("Lasr word: " + binaryTree.getMax());
+        System.out.println("Last word: " + binaryTree.getMax());
         System.out.println("---------------------------");
 
     }
@@ -53,17 +53,66 @@ public class Main {
     public static void menu(){
 
         Scanner scanner = new Scanner(System.in);
-        String input = "";
+        String input;
 
         while(true){
             System.out.println("Type a word:");
-            input = scanner.nextLine();
+            input = scanner.nextLine().toLowerCase();
             if (input.equals("q")){
                 break;
             }
-            System.out.println(binaryTree.find(input));
-
+            String found = binaryTree.find(input);
+            if (found != null){
+                System.out.println("The word is found: " + found);
+            } else {
+                System.out.println("The word is not found. Here's the suggestions: ");
+                printSuggestions(input);
+            }
         }
+    }
+
+    public static void printSuggestions(String input){
+
+        ArrayList<String> suggestions = new ArrayList<String>();
+
+        //1. neighbor letter switching
+        for (int i=0; i<input.length()-1; i++){
+            char[] input_array = input.toCharArray();
+            char tmp = input_array[i];
+            input_array[i] = input_array[i+1];
+            input_array[i+1] = tmp;
+
+            addSuggestion(suggestions, input_array);
+        }
+
+        //2. one letter replacement
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        for (int i=0; i<input.length(); i++){
+            for (char letter: alphabet) {
+                char[] input_array = input.toCharArray();
+                input_array[i] = letter;
+                addSuggestion(suggestions, input_array);
+            }
+        }
+
+
+        for (String item: suggestions) {
+            System.out.println(item);
+        }
+
+
+
+
+    }
+
+    private static void addSuggestion(ArrayList<String> suggestions, char[] combination){
+
+        String suggestion = binaryTree.find(new String(combination));
+        if (suggestion != null
+                && (suggestions.indexOf(suggestion) == -1)){
+            suggestions.add(suggestion);
+        }
+
     }
 
 
