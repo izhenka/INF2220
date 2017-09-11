@@ -2,7 +2,6 @@ package main;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -66,7 +65,7 @@ public class Main {
             if (found != null){
                 System.out.println("The word is found: " + found);
             } else {
-                System.out.println("The word is not found. Here's the suggestions: ");
+                System.out.println("The word \"" + input + "\" is not found. Here's the suggestions: ");
                 printSuggestions(input);
             }
         }

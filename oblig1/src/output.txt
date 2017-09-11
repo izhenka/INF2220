@@ -1,0 +1,67 @@
+Type a word (or "q" for quit):
+The word "achiev" is not found. Here's the suggestions: 
+achive
+achier
+Type a word (or "q" for quit):
+The word "achiese" is not found. Here's the suggestions: 
+achieve
+achiest
+achinese
+Type a word (or "q" for quit):
+The word "achievee" is not found. Here's the suggestions: 
+achieved
+achiever
+achieves
+achieve
+Type a word (or "q" for quit):
+The word "ahcieve" is not found. Here's the suggestions: 
+achieve
+Type a word (or "q" for quit):
+
+****** Statistics ******
+Tree depth: 36
+---------------------------
+Nodes per depth:
+Depth 0: 1
+Depth 1: 2
+Depth 2: 4
+Depth 3: 8
+Depth 4: 16
+Depth 5: 32
+Depth 6: 64
+Depth 7: 121
+Depth 8: 218
+Depth 9: 383
+Depth 10: 628
+Depth 11: 990
+Depth 12: 1513
+Depth 13: 2208
+Depth 14: 2949
+Depth 15: 3889
+Depth 16: 4772
+Depth 17: 5670
+Depth 18: 6251
+Depth 19: 6688
+Depth 20: 6690
+Depth 21: 6448
+Depth 22: 5890
+Depth 23: 5101
+Depth 24: 4244
+Depth 25: 3254
+Depth 26: 2395
+Depth 27: 1789
+Depth 28: 1177
+Depth 29: 705
+Depth 30: 429
+Depth 31: 236
+Depth 32: 138
+Depth 33: 60
+Depth 34: 25
+Depth 35: 9
+Depth 36: 3
+---------------------------
+Average depth: 20
+---------------------------
+First word: abactinally
+Last word: darndests
+---------------------------
