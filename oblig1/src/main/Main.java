@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -56,7 +57,7 @@ public class Main {
         String input;
 
         while(true){
-            System.out.println("Type a word:");
+            System.out.println("Type a word (or \"q\" for quit):");
             input = scanner.nextLine().toLowerCase();
             if (input.equals("q")){
                 break;
@@ -95,7 +96,19 @@ public class Main {
             }
         }
 
+        //3. letter adding
+        char[] input_array = input.toCharArray();
+        for (int i=0; i<input.length(); i++){
+            for (char letter: alphabet) {
+                char[] suggestion = copyArrayWithPlaceholder(input_array, i);
+                suggestion[i] = letter;
+                addSuggestion(suggestions, suggestion);
+            }
+        }
 
+
+
+        //print out
         for (String item: suggestions) {
             System.out.println(item);
         }
@@ -115,6 +128,17 @@ public class Main {
 
     }
 
+
+    private static char[] copyArrayWithPlaceholder(char[] source, int indexPlaceholder){
+        char[] result = new char[source.length + 1];
+        for(int k=0; k<source.length + 1; k++){
+            if(k==indexPlaceholder){
+                continue;
+            }
+            result[k] = source[( k<indexPlaceholder ? k : k-1)];
+        }
+        return result;
+    }
 
     public static void loadDictionary(String filename) throws Exception {
 
