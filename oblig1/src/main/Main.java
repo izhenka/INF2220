@@ -76,16 +76,31 @@ public class Main {
 
         ArrayList<String> suggestions = new ArrayList<String>();
 
+        add_NeigborLetterSwitch_suggestions(suggestions, input);
+        add_LetterReplacement_suggestions(suggestions, input);
+        add_AddLetter_suggestions(suggestions, input);
+        add_RemoveLetter_suggestions(suggestions, input);
+
+        //print out
+        for (String item: suggestions) {
+            System.out.println(item);
+        }
+    }
+
+
+    private static void add_NeigborLetterSwitch_suggestions(ArrayList<String> suggestions, String input){
         //1. neighbor letter switching
-        for (int i=0; i<input.length()-1; i++){
+        for (int i=0; i<input.length()-1; i++) {
             char[] input_array = input.toCharArray();
             char tmp = input_array[i];
-            input_array[i] = input_array[i+1];
-            input_array[i+1] = tmp;
+            input_array[i] = input_array[i + 1];
+            input_array[i + 1] = tmp;
 
             addSuggestion(suggestions, input_array);
         }
+    }
 
+    private static void add_LetterReplacement_suggestions(ArrayList<String> suggestions, String input){
         //2. one letter replacement
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         for (int i=0; i<input.length(); i++){
@@ -95,9 +110,13 @@ public class Main {
                 addSuggestion(suggestions, input_array);
             }
         }
+    }
 
+    private static void add_AddLetter_suggestions(ArrayList<String> suggestions, String input){
         //3. letter adding
         char[] input_array = input.toCharArray();
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+
         for (int i=0; i<input.length(); i++){
             for (char letter: alphabet) {
                 char[] suggestion = copyArrayWithPlaceholder(input_array, i);
@@ -105,20 +124,27 @@ public class Main {
                 addSuggestion(suggestions, suggestion);
             }
         }
-
-
-
-        //print out
-        for (String item: suggestions) {
-            System.out.println(item);
-        }
-
-
-
-
     }
 
-    private static void addSuggestion(ArrayList<String> suggestions, char[] combination){
+    private static void add_RemoveLetter_suggestions(ArrayList<String> suggestions, String input){
+        //4. letter removing
+        char[] input_array = input.toCharArray();
+
+        for (int i=0; i<input.length(); i++){
+            String suggestion = "";
+            int n = 0;
+            for (char letter: input_array) {
+                if (n!=i){
+                    suggestion+=letter;
+                }
+                n++;
+            }
+            addSuggestion(suggestions, suggestion.toCharArray());
+        }
+    }
+
+
+        private static void addSuggestion(ArrayList<String> suggestions, char[] combination){
 
         String suggestion = binaryTree.find(new String(combination));
         if (suggestion != null
@@ -127,7 +153,6 @@ public class Main {
         }
 
     }
-
 
     private static char[] copyArrayWithPlaceholder(char[] source, int indexPlaceholder){
         char[] result = new char[source.length + 1];
