@@ -8,13 +8,14 @@ import java.util.Scanner;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         ProjectPlanner pp = new ProjectPlanner();
         try {
             pp.loadProject("buildhouse1.txt");
         } catch (Exception e) {
-            System.out.println("The project hasn't been loaded :( \n" + e.getMessage());
+            System.out.println("The project hasn't been loaded :(");
+            e.printStackTrace();
             return;
         }
         System.out.println(pp.toString());

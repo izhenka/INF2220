@@ -3,12 +3,13 @@ package main;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class ProjectPlanner {
 
-    public  List<Task> tasks = new ArrayList<Task>();
+    public  Task[] tasks;
 
     public void loadProject(String fileName) throws Exception{
 
@@ -17,6 +18,8 @@ public class ProjectPlanner {
 
 
         int numberTasks = Integer.parseInt(scanner.nextLine().trim());
+        tasks = new Task[numberTasks];
+
         int cnt = 1;
         scanner.nextLine();
         while (scanner.hasNextLine() && cnt<=numberTasks) {
@@ -31,17 +34,22 @@ public class ProjectPlanner {
             for (int i = 4; i < parameters.length-1; i++){
                 outEdgesId.add(Integer.parseInt(parameters[i]));
             }
-            tasks.add(new Task(id, time, manpower, name, outEdgesId));
+            tasks[id-1] = new Task(id, time, manpower, name, outEdgesId);
             cnt++;
         }
+        //fill outEdges with Task references
+        for (Task t:tasks) {
+            for (int outEdgeId: t.outEdgesId) {
+                t.outEdges.add(tasks[outEdgeId-1]);
+            }
+        }
         System.out.println("Project is loaded!");
-
     }
 
     @Override
     public String toString() {
         return "ProjectPlanner{" +
-                "tasks=" + tasks +
+                "tasks=" + Arrays.asList(tasks) +
                 '}';
     }
 }

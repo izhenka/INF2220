@@ -1,6 +1,7 @@
 package main;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Task {
@@ -19,7 +20,9 @@ public class Task {
         this.staff = staff;
         this.name = name;
         this.outEdgesId = outEdgesId;
+        this.outEdges = new ArrayList<Task>();
     }
+
 
     @Override
     public String toString() {
@@ -30,7 +33,7 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", earliestStart=" + earliestStart +
                 ", latestStart=" + latestStart +
-                ", outEdges=" + outEdges +
+//                ", outEdges=" + outEdges +
                 ", cntPredecessors=" + cntPredecessors +
                 ", outEdgesId=" + outEdgesId +
                 '}';
