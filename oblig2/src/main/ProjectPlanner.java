@@ -30,21 +30,27 @@ public class ProjectPlanner {
             int time = Integer.parseInt(parameters[2]);
             int manpower = Integer.parseInt(parameters[3]);
 
-            List<Integer> outEdgesId = new ArrayList<Integer>();
+            List<Integer> predecessorsId = new ArrayList<Integer>();
             for (int i = 4; i < parameters.length-1; i++){
-                outEdgesId.add(Integer.parseInt(parameters[i]));
+                predecessorsId.add(Integer.parseInt(parameters[i]));
             }
-            tasks[id-1] = new Task(id, time, manpower, name, outEdgesId);
+            tasks[id-1] = new Task(id, time, manpower, name, predecessorsId);
             cnt++;
-        }
-        //fill outEdges with Task references
-        for (Task t:tasks) {
-            for (int outEdgeId: t.outEdgesId) {
-                t.outEdges.add(tasks[outEdgeId-1]);
-            }
         }
         System.out.println("Project is loaded!");
     }
+
+
+    public void fillOutEdges(){
+        for (Task task:tasks) {
+            for (int predecessorId: task.predecessorsId) {
+                Task predecessor = tasks[predecessorId-1];
+                predecessor.outEdges.add(task);
+            }
+        }
+    }
+
+
 
     @Override
     public String toString() {
