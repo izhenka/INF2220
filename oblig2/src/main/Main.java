@@ -13,7 +13,16 @@ public class Main {
             return;
         }
         pp.fillOutEdges();
-        System.out.println(pp.toString());
+
+        if (!pp.isRealizable()){
+            System.out.println("Sorry, project is not realizable :(");
+            return;
+        }else{
+            System.out.println("Yeeey, project is realizable!");
+        }
+
+        //plan
+        System.out.println("\n"+pp.toString());
 
 
 

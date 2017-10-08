@@ -2,10 +2,7 @@ package main;
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ProjectPlanner {
 
@@ -51,6 +48,29 @@ public class ProjectPlanner {
     }
 
 
+    public Boolean isRealizable(){
+        Queue<Task> q = new LinkedList<Task>();
+        int cnt = 0;
+
+        for (Task task:tasks) {
+            if (task.cntPredecessors == 0){
+                q.add(task);
+            }
+        }
+        while(!q.isEmpty()){
+            Task t = q.remove();
+            cnt++;
+            for (Task adjacentT: t.outEdges) {
+                if(--adjacentT.cntPredecessors == 0){
+                    q.add(adjacentT);
+                }
+            }
+        }
+        if (cnt < tasks.length){
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toString() {
