@@ -6,7 +6,9 @@ public class Main {
 
         ProjectPlanner pp = new ProjectPlanner();
         try {
-            pp.loadProject("buildhouse1.txt");
+            //TODO change filename to app's argument
+            //String filename = args[1];
+            pp.loadProject("buildhouse2.txt");
         } catch (Exception e) {
             System.out.println("The project hasn't been loaded :(");
             e.printStackTrace();

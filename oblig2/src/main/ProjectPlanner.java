@@ -67,9 +67,22 @@ public class ProjectPlanner {
             }
         }
         if (cnt < tasks.length){
+            printOutCycle();
             return false;
         }
         return true;
+    }
+
+    private void printOutCycle(){
+        for (Task t: tasks) {
+            if(t.cntPredecessors>0){
+                List<Integer> cyclePath = t.findCyclePath();
+                if(cyclePath != null){
+                    System.out.println("path:" + cyclePath);
+                       return;
+                }
+            }
+        }
     }
 
     @Override
