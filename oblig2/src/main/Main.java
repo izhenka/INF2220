@@ -17,7 +17,7 @@ public class Main {
         pp.fillOutEdges();
 
         if (!pp.isRealizable()){
-            System.out.println("Sorry, project is not realizable :(");
+            System.out.println("Sorry, the project is not realizable :(");
             return;
         }else{
             System.out.println("Yeeey, project is realizable!");

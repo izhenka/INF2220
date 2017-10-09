@@ -78,7 +78,7 @@ public class ProjectPlanner {
             if(t.cntPredecessors>0){
                 List<Integer> cyclePath = t.findCyclePath();
                 if(cyclePath != null){
-                    System.out.println("path:" + cyclePath);
+                    System.out.println("There is a cycle in project.\nCycle path:" + cyclePath);
                        return;
                 }
             }
