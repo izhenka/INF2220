@@ -14,10 +14,6 @@ public class Task {
     List<Task> inEdges = new ArrayList<Task>();
     int cntPredecessors;
     List<Integer> predecessorsId;
-    Task criticalPredecessor;
-
-    int distance;
-    Task predecessor;
 
 
 

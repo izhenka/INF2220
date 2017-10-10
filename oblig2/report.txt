@@ -23,5 +23,5 @@ O(E + V) - to find earliest time
 The same principle here.
 
 
-*where E - number edges(dependencies), V - number of vertices(tasks)
-** Have looked just at main methods
+* where E - number edges(dependencies), V - number of vertices(tasks)
+** I have looked just at main methods

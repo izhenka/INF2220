@@ -12,8 +12,7 @@ javac main/*.java
 -
 
 5. The status of your delivery (what works and what does not)
-> The case when graph has several starting or end points doesn't work properly.
-The latest start time is being computed wrong in these cases.
+> Everything works
 
 
 7. Remember to give credit

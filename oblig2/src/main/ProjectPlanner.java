@@ -92,30 +92,70 @@ public class ProjectPlanner {
 
     public void computeSchedule(){
 
-        //TODO: start and end-points!
+        List<Task> sortedTasks = makeGraphStructure();
 
+        computeEarliestStartTime(sortedTasks);
+        computeLatestStartTime(sortedTasks);
+    }
+
+    public void computeEarliestStartTime(List<Task> sortedTasks){
         //earliest start
-        topSortedTasks.get(0).earliestStart = 0;
-        for (Task t: topSortedTasks) {
+        sortedTasks.get(0).earliestStart = 0;
+        for (Task t: sortedTasks) {
             for (Task adjacent_t: t.outEdges) {
                 if(t.earliestStart + t.time >adjacent_t.earliestStart){
                     adjacent_t.earliestStart = t.earliestStart + t.time;
-                    adjacent_t.criticalPredecessor = t;
                 }
             }
         }
+    }
 
-        //latest start
-        ArrayList<Task> reversed_topSortedTasks = new ArrayList<>(topSortedTasks);
-        Collections.reverse(reversed_topSortedTasks);
 
-        reversed_topSortedTasks.get(0).latestStart = reversed_topSortedTasks.get(0).earliestStart;
-        for (Task t: reversed_topSortedTasks) {
+    public void computeLatestStartTime(List<Task> sortedTasks){
+        ArrayList<Task> reversed_sortedTasks = new ArrayList<>(sortedTasks);
+        Collections.reverse(reversed_sortedTasks);
+
+        reversed_sortedTasks.get(0).latestStart = reversed_sortedTasks.get(0).earliestStart;
+        for (Task t: reversed_sortedTasks) {
             for (Task predecessor_t: t.inEdges) {
-                if(t.earliestStart - t.time < predecessor_t.latestStart || (predecessor_t.latestStart == -1)){
-                    predecessor_t.latestStart = t.earliestStart - t.time;
+                if(t.earliestStart - predecessor_t.time < predecessor_t.latestStart || (predecessor_t.latestStart == -1)){
+                    predecessor_t.latestStart = t.earliestStart - predecessor_t.time;
                 }
             }
+        }
+    }
+
+
+    public List<Task> makeGraphStructure(){
+        //add start point before all starting tasks
+        Task start = new Task(-1, 0, 0, "start", new ArrayList<Integer>());
+        for (Task t: tasks) {
+            if (t.cntPredecessors == 0){
+                t.inEdges.add(start);
+                start.outEdges.add(t);
+            }
+        }
+
+        //add finish point after all finishing tasks
+        Task finish = new Task(-2, 0, 0, "finish", new ArrayList<Integer>());
+        for (Task t: tasks) {
+            if (t.outEdges.size() == 0){
+                t.outEdges.add(finish);
+                finish.inEdges.add(t);
+            }
+        }
+
+        List<Task> sortedTasks = new ArrayList<>();
+        sortedTasks.add(start);
+        sortedTasks.addAll(topSortedTasks);
+        sortedTasks.add(finish);
+
+        return sortedTasks;
+    }
+
+    public void resetTaskPrececcorsCounter(){
+        for (Task t: tasks) {
+            t.cntPredecessors = t.predecessorsId.size();
         }
     }
 

@@ -32,6 +32,7 @@ public class Oblig2 {
             System.out.println("Yeeey, project is realizable!");
         }
 
+        pp.resetTaskPrececcorsCounter();
         pp.computeSchedule();
         pp.printOutSimulation();
 
