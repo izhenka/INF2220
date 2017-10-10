@@ -1,0 +1,618 @@
+===========================
+buildhouse1.txt
+===========================
+
+Project is loaded.
+Yeeey, project is realizable!
+**** Simulation of the execution ****
+
+Time: 0
+Starting: 5
+Current staff: 2
+
+Time: 4
+Starting: 1
+Starting: 6
+Finished: 5
+Current staff: 4
+
+Time: 6
+Finished: 6
+Current staff: 2
+
+Time: 8
+Starting: 2
+Finished: 1
+Current staff: 4
+
+Time: 14
+Starting: 3
+Starting: 4
+Starting: 7
+Finished: 2
+Current staff: 7
+
+Time: 15
+Finished: 3
+Finished: 4
+Current staff: 2
+
+Time: 18
+Starting: 8
+Finished: 7
+Current staff: 4
+
+Time: 22
+Finished: 8
+
+**** Shortest possible project execution is 22 ****
+
+All tasks:
+
+Task 1:
+	id: 1
+	name: Build-walls
+	time needed to finish the task: 4
+	manpower: 2
+	earliest starting time: 4
+	latest starting time: 4
+	slack: 0
+	tasks depending on this task: 2-Build-roofs, 3-Put-on-wallpapers
+
+Task 2:
+	id: 2
+	name: Build-roofs
+	time needed to finish the task: 6
+	manpower: 4
+	earliest starting time: 8
+	latest starting time: 8
+	slack: 0
+	tasks depending on this task: 3-Put-on-wallpapers, 4-Put-on-tiles, 7-Put-carpet-floor
+
+Task 3:
+	id: 3
+	name: Put-on-wallpapers
+	time needed to finish the task: 1
+	manpower: 2
+	earliest starting time: 14
+	latest starting time: 17
+	slack: 3
+	tasks depending on this task: 8-Move-in
+
+Task 4:
+	id: 4
+	name: Put-on-tiles
+	time needed to finish the task: 1
+	manpower: 3
+	earliest starting time: 14
+	latest starting time: 21
+	slack: 7
+	tasks depending on this task: None
+
+Task 5:
+	id: 5
+	name: Build-foundation
+	time needed to finish the task: 4
+	manpower: 2
+	earliest starting time: 0
+	latest starting time: 0
+	slack: 0
+	tasks depending on this task: 1-Build-walls, 6-Make-floor
+
+Task 6:
+	id: 6
+	name: Make-floor
+	time needed to finish the task: 2
+	manpower: 2
+	earliest starting time: 4
+	latest starting time: 12
+	slack: 8
+	tasks depending on this task: 7-Put-carpet-floor
+
+Task 7:
+	id: 7
+	name: Put-carpet-floor
+	time needed to finish the task: 4
+	manpower: 2
+	earliest starting time: 14
+	latest starting time: 14
+	slack: 0
+	tasks depending on this task: 8-Move-in
+
+Task 8:
+	id: 8
+	name: Move-in
+	time needed to finish the task: 4
+	manpower: 4
+	earliest starting time: 18
+	latest starting time: 18
+	slack: 0
+	tasks depending on this task: None
+
+Process finished with exit code 0
+
+
+===========================
+buildhouse2.txt
+===========================
+
+Project is loaded.
+There is a cycle in project.
+Cycle path:[1, 2, 3, 6, 1]
+The project is not realizable :(
+
+Process finished with exit code 0
+
+===========================
+buildrail.txt
+===========================
+
+Project is loaded.
+Yeeey, project is realizable!
+**** Simulation of the execution ****
+
+Time: 0
+Starting: 9
+Current staff: 10
+
+Time: 3
+Starting: 10
+Starting: 11
+Starting: 12
+Starting: 14
+Starting: 16
+Starting: 17
+Finished: 9
+Current staff: 56
+
+Time: 4
+Starting: 18
+Starting: 19
+Starting: 20
+Finished: 11
+Current staff: 64
+
+Time: 5
+Starting: 2
+Finished: 10
+Current staff: 70
+
+Time: 12
+Finished: 2
+Current staff: 60
+
+Time: 16
+Starting: 23
+Finished: 20
+Current staff: 61
+
+Time: 28
+Starting: 15
+Finished: 14
+Current staff: 61
+
+Time: 29
+Finished: 19
+Current staff: 57
+
+Time: 33
+Starting: 13
+Finished: 12
+Current staff: 57
+
+Time: 38
+Finished: 16
+Current staff: 45
+
+Time: 44
+Starting: 21
+Finished: 18
+Current staff: 46
+
+Time: 46
+Starting: 26
+Finished: 23
+Current staff: 48
+
+Time: 48
+Starting: 22
+Finished: 17
+Finished: 15
+Current staff: 29
+
+Time: 51
+Starting: 8
+Finished: 13
+Current staff: 24
+
+Time: 59
+Starting: 24
+Finished: 21
+Current staff: 26
+
+Time: 63
+Starting: 3
+Finished: 8
+Current staff: 29
+
+Time: 64
+Starting: 25
+Finished: 22
+Finished: 3
+Current staff: 21
+
+Time: 66
+Finished: 26
+Current staff: 14
+
+Time: 119
+Starting: 4
+Finished: 24
+Current staff: 13
+
+Time: 124
+Starting: 5
+Starting: 27
+Finished: 25
+Current staff: 22
+
+Time: 134
+Finished: 4
+Current staff: 16
+
+Time: 136
+Finished: 5
+Current staff: 10
+
+Time: 149
+Starting: 28
+Starting: 29
+Finished: 27
+Current staff: 20
+
+Time: 179
+Finished: 28
+Current staff: 10
+
+Time: 186
+Starting: 1
+Starting: 6
+Starting: 7
+Starting: 30
+Finished: 29
+Current staff: 29
+
+Time: 204
+Finished: 7
+Current staff: 23
+
+Time: 206
+Starting: 31
+Finished: 1
+Finished: 30
+Current staff: 13
+
+Time: 213
+Finished: 6
+Current staff: 7
+
+Time: 218
+Finished: 31
+
+**** Shortest possible project execution is 218 ****
+
+All tasks:
+
+Task 1:
+	id: 1
+	name: Install-pavement
+	time needed to finish the task: 20
+	manpower: 10
+	earliest starting time: 186
+	latest starting time: 198
+	slack: 12
+	tasks depending on this task: None
+
+Task 2:
+	id: 2
+	name: Install-railing
+	time needed to finish the task: 7
+	manpower: 10
+	earliest starting time: 5
+	latest starting time: 211
+	slack: 206
+	tasks depending on this task: None
+
+Task 3:
+	id: 3
+	name: Install-ticketmachine
+	time needed to finish the task: 1
+	manpower: 10
+	earliest starting time: 63
+	latest starting time: 217
+	slack: 154
+	tasks depending on this task: None
+
+Task 4:
+	id: 4
+	name: Paint-tower-1-with-arch
+	time needed to finish the task: 15
+	manpower: 6
+	earliest starting time: 119
+	latest starting time: 203
+	slack: 84
+	tasks depending on this task: None
+
+Task 5:
+	id: 5
+	name: Paint-tower-2
+	time needed to finish the task: 12
+	manpower: 6
+	earliest starting time: 124
+	latest starting time: 206
+	slack: 82
+	tasks depending on this task: None
+
+Task 6:
+	id: 6
+	name: Paint-trusses
+	time needed to finish the task: 27
+	manpower: 6
+	earliest starting time: 186
+	latest starting time: 191
+	slack: 5
+	tasks depending on this task: None
+
+Task 7:
+	id: 7
+	name: Paint-cables-and-rods
+	time needed to finish the task: 18
+	manpower: 6
+	earliest starting time: 186
+	latest starting time: 200
+	slack: 14
+	tasks depending on this task: None
+
+Task 8:
+	id: 8
+	name: Put-lane-tunnel-and-intersection
+	time needed to finish the task: 12
+	manpower: 7
+	earliest starting time: 51
+	latest starting time: 51
+	slack: 0
+	tasks depending on this task: 3-Install-ticketmachine, 31-Polish-lane-on-arch
+
+Task 9:
+	id: 9
+	name: Setup-barrack
+	time needed to finish the task: 3
+	manpower: 10
+	earliest starting time: 0
+	latest starting time: 0
+	slack: 0
+	tasks depending on this task: 10-Prepare-storage, 11-Rig-ramspace-reinforcing, 12-Build-tunnel, 14-Build-intersection, 16-Build-towerfoundation-1, 17-Build-towerfoundation-2
+
+Task 10:
+	id: 10
+	name: Prepare-storage
+	time needed to finish the task: 2
+	manpower: 4
+	earliest starting time: 3
+	latest starting time: 3
+	slack: 0
+	tasks depending on this task: 2-Install-railing
+
+Task 11:
+	id: 11
+	name: Rig-ramspace-reinforcing
+	time needed to finish the task: 1
+	manpower: 4
+	earliest starting time: 3
+	latest starting time: 3
+	slack: 0
+	tasks depending on this task: 18-Make-armouring-tower-1, 19-Make-armouring-tower-2, 20-Make-armouring-arch
+
+Task 12:
+	id: 12
+	name: Build-tunnel
+	time needed to finish the task: 30
+	manpower: 12
+	earliest starting time: 3
+	latest starting time: 3
+	slack: 0
+	tasks depending on this task: 13-Clean-tunnel
+
+Task 13:
+	id: 13
+	name: Clean-tunnel
+	time needed to finish the task: 18
+	manpower: 12
+	earliest starting time: 33
+	latest starting time: 33
+	slack: 0
+	tasks depending on this task: 8-Put-lane-tunnel-and-intersection
+
+Task 14:
+	id: 14
+	name: Build-intersection
+	time needed to finish the task: 25
+	manpower: 12
+	earliest starting time: 3
+	latest starting time: 3
+	slack: 0
+	tasks depending on this task: 15-Clean-intersection
+
+Task 15:
+	id: 15
+	name: Clean-intersection
+	time needed to finish the task: 20
+	manpower: 12
+	earliest starting time: 28
+	latest starting time: 31
+	slack: 3
+	tasks depending on this task: 8-Put-lane-tunnel-and-intersection
+
+Task 16:
+	id: 16
+	name: Build-towerfoundation-1
+	time needed to finish the task: 35
+	manpower: 12
+	earliest starting time: 3
+	latest starting time: 9
+	slack: 6
+	tasks depending on this task: 21-Encase-and-armour-tower-1
+
+Task 17:
+	id: 17
+	name: Build-towerfoundation-2
+	time needed to finish the task: 45
+	manpower: 12
+	earliest starting time: 3
+	latest starting time: 3
+	slack: 0
+	tasks depending on this task: 22-Encase-and-armour-tower-2
+
+Task 18:
+	id: 18
+	name: Make-armouring-tower-1
+	time needed to finish the task: 40
+	manpower: 4
+	earliest starting time: 4
+	latest starting time: 4
+	slack: 0
+	tasks depending on this task: 21-Encase-and-armour-tower-1
+
+Task 19:
+	id: 19
+	name: Make-armouring-tower-2
+	time needed to finish the task: 25
+	manpower: 4
+	earliest starting time: 4
+	latest starting time: 23
+	slack: 19
+	tasks depending on this task: 22-Encase-and-armour-tower-2
+
+Task 20:
+	id: 20
+	name: Make-armouring-arch
+	time needed to finish the task: 12
+	manpower: 4
+	earliest starting time: 4
+	latest starting time: 4
+	slack: 0
+	tasks depending on this task: 23-Encase-and-armour-arch
+
+Task 21:
+	id: 21
+	name: Encase-and-armour-tower-1
+	time needed to finish the task: 15
+	manpower: 5
+	earliest starting time: 44
+	latest starting time: 44
+	slack: 0
+	tasks depending on this task: 24-Cast-tower-1
+
+Task 22:
+	id: 22
+	name: Encase-and-armour-tower-2
+	time needed to finish the task: 16
+	manpower: 5
+	earliest starting time: 48
+	latest starting time: 48
+	slack: 0
+	tasks depending on this task: 25-Cast-tower-2
+
+Task 23:
+	id: 23
+	name: Encase-and-armour-arch
+	time needed to finish the task: 30
+	manpower: 5
+	earliest starting time: 16
+	latest starting time: 16
+	slack: 0
+	tasks depending on this task: 26-Cast-arch
+
+Task 24:
+	id: 24
+	name: Cast-tower-1
+	time needed to finish the task: 60
+	manpower: 7
+	earliest starting time: 59
+	latest starting time: 59
+	slack: 0
+	tasks depending on this task: 4-Paint-tower-1-with-arch, 27-Stretch-two-maincables
+
+Task 25:
+	id: 25
+	name: Cast-tower-2
+	time needed to finish the task: 60
+	manpower: 7
+	earliest starting time: 64
+	latest starting time: 64
+	slack: 0
+	tasks depending on this task: 5-Paint-tower-2, 27-Stretch-two-maincables
+
+Task 26:
+	id: 26
+	name: Cast-arch
+	time needed to finish the task: 20
+	manpower: 7
+	earliest starting time: 46
+	latest starting time: 186
+	slack: 140
+	tasks depending on this task: 31-Polish-lane-on-arch
+
+Task 27:
+	id: 27
+	name: Stretch-two-maincables
+	time needed to finish the task: 25
+	manpower: 10
+	earliest starting time: 124
+	latest starting time: 124
+	slack: 0
+	tasks depending on this task: 28-Build-truss-1-with-rods, 29-Build-truss-2-with-rods
+
+Task 28:
+	id: 28
+	name: Build-truss-1-with-rods
+	time needed to finish the task: 30
+	manpower: 10
+	earliest starting time: 149
+	latest starting time: 156
+	slack: 7
+	tasks depending on this task: 1-Install-pavement, 6-Paint-trusses, 7-Paint-cables-and-rods, 30-Cast-lane-on-truss
+
+Task 29:
+	id: 29
+	name: Build-truss-2-with-rods
+	time needed to finish the task: 37
+	manpower: 10
+	earliest starting time: 149
+	latest starting time: 149
+	slack: 0
+	tasks depending on this task: 1-Install-pavement, 6-Paint-trusses, 7-Paint-cables-and-rods, 30-Cast-lane-on-truss
+
+Task 30:
+	id: 30
+	name: Cast-lane-on-truss
+	time needed to finish the task: 20
+	manpower: 7
+	earliest starting time: 186
+	latest starting time: 186
+	slack: 0
+	tasks depending on this task: 31-Polish-lane-on-arch
+
+Task 31:
+	id: 31
+	name: Polish-lane-on-arch
+	time needed to finish the task: 12
+	manpower: 7
+	earliest starting time: 206
+	latest starting time: 206
+	slack: 0
+	tasks depending on this task: None
+
+Process finished with exit code 0
+
+

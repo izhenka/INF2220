@@ -83,7 +83,5 @@ public class Task {
                 "\n\tslack: " + (latestStart - earliestStart) +
                 "\n\ttasks depending on this task: " + outEdges_str;
 
-
-
     }
 }

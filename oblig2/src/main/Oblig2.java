@@ -11,7 +11,7 @@ public class Oblig2 {
         try {
             //TODO change filename to app's argument
             //String filename = args[1];
-            pp.loadProject("buildhouse1.txt");
+            pp.loadProject("buildrail.txt");
             if (pp.tasks.length == 0){
                 System.out.println("Nothing to plan");
                 return;
