@@ -1,5 +1,8 @@
 package main;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Oblig2 {
 
     public static void main(String[] args) throws Exception{
@@ -34,7 +37,10 @@ public class Oblig2 {
 
 
         //plan
-        System.out.println("\n"+pp.topSortedTasks);
+        System.out.println("\nAll tasks:");
+        for (Task t:pp.tasks) {
+            System.out.println(t);
+        }
 
 
 

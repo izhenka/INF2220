@@ -69,19 +69,22 @@ public class Task {
         }
         if(!outEdges.isEmpty()){
             outEdges_str = outEdges_str.substring(0, outEdges_str.length()-2);
+        } else {
+            outEdges_str = "None";
         }
 
 
-        return "\nTask{" +
-                "id=" + id +
-                ", time=" + time +
-//                ", staff=" + staff +
-//                ", name='" + name + '\'' +
-                ", earliestStart=" + earliestStart +
-                ", latestStart=" + latestStart +
-//                ", outEdges=" + outEdges_str +
-//                ", cntPredecessors=" + cntPredecessors +
-//                ", predecessorsId=" + predecessorsId +
-                '}';
+        return "\nTask " + id + ":" +
+                "\n\tid: " + id +
+                "\n\tname: " + name +
+                "\n\ttime needed to finish the task: " + time +
+                "\n\tmanpower: " + staff +
+                "\n\tearliest starting time: " + earliestStart +
+                "\n\tlatest starting time: " + latestStart +
+                "\n\tslack: " + (latestStart - earliestStart) +
+                "\n\ttasks depending on this task: " + outEdges_str;
+
+
+
     }
 }
