@@ -11,6 +11,7 @@ public class Task {
     String name;
     int earliestStart = -1, latestStart = -1;
     List<Task> outEdges = new ArrayList<Task>();
+    List<Task> inEdges = new ArrayList<Task>();
     int cntPredecessors;
     List<Integer> predecessorsId;
     Task criticalPredecessor;
@@ -27,6 +28,8 @@ public class Task {
         this.name = name;
         this.predecessorsId = predecessorsId;
         this.outEdges = new ArrayList<Task>();
+        this.inEdges = new ArrayList<Task>();
+
         cntPredecessors = predecessorsId.size();
     }
 
@@ -44,7 +47,6 @@ public class Task {
     }
 
     private boolean isCycle(Task start, Task current, List<Integer> path){
-//        System.out.println("start: " + start.id + "\tcurrent: " + current.id);
         path.add(current.id);
         if (current == start){
             return true;
@@ -76,7 +78,7 @@ public class Task {
 //                ", staff=" + staff +
 //                ", name='" + name + '\'' +
                 ", earliestStart=" + earliestStart +
-//                ", latestStart=" + latestStart +
+                ", latestStart=" + latestStart +
 //                ", outEdges=" + outEdges_str +
 //                ", cntPredecessors=" + cntPredecessors +
 //                ", predecessorsId=" + predecessorsId +

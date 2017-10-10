@@ -1,6 +1,6 @@
 package main;
 
-public class Main {
+public class Oblig2 {
 
     public static void main(String[] args) throws Exception{
 
@@ -9,12 +9,18 @@ public class Main {
             //TODO change filename to app's argument
             //String filename = args[1];
             pp.loadProject("buildhouse1.txt");
+            if (pp.tasks.length == 0){
+                System.out.println("Nothing to plan");
+                return;
+            }
         } catch (Exception e) {
             System.out.println("The project hasn't been loaded :(");
             e.printStackTrace();
             return;
         }
-        pp.fillOutEdges();
+
+
+        pp.fillInOutEdges();
 
         if (!pp.isRealizable()){
             System.out.println("The project is not realizable :(");
@@ -23,8 +29,8 @@ public class Main {
             System.out.println("Yeeey, project is realizable!");
         }
 
-        pp.findCompletionTime();
-
+        pp.computeSchedule();
+        pp.printOutSimulation();
 
 
         //plan

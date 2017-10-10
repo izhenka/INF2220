@@ -7,7 +7,7 @@ import java.util.*;
 public class ProjectPlanner {
 
     public  Task[] tasks;
-    public List<Task> topSortedTasks;
+    public ArrayList<Task> topSortedTasks;
 
     public void loadProject(String fileName) throws Exception{
 
@@ -35,14 +35,15 @@ public class ProjectPlanner {
             tasks[id-1] = new Task(id, time, manpower, name, predecessorsId);
             cnt++;
         }
-        System.out.println("Project is loaded!");
+        System.out.println("Project is loaded.");
     }
 
 
-    public void fillOutEdges(){
+    public void fillInOutEdges(){
         for (Task task:tasks) {
             for (int predecessorId: task.predecessorsId) {
                 Task predecessor = tasks[predecessorId-1];
+                task.inEdges.add(predecessor);
                 predecessor.outEdges.add(task);
             }
         }
@@ -89,8 +90,11 @@ public class ProjectPlanner {
         }
     }
 
-    public int findCompletionTime(){
+    public void computeSchedule(){
 
+        //TODO: start and end-points!
+
+        //earliest start
         topSortedTasks.get(0).earliestStart = 0;
         for (Task t: topSortedTasks) {
             for (Task adjacent_t: t.outEdges) {
@@ -101,7 +105,65 @@ public class ProjectPlanner {
             }
         }
 
-        return 0;
+        //latest start
+        ArrayList<Task> reversed_topSortedTasks = new ArrayList<>(topSortedTasks);
+        Collections.reverse(reversed_topSortedTasks);
+
+        reversed_topSortedTasks.get(0).latestStart = reversed_topSortedTasks.get(0).earliestStart;
+        for (Task t: reversed_topSortedTasks) {
+            for (Task predecessor_t: t.inEdges) {
+                if(t.earliestStart - t.time < predecessor_t.latestStart || (predecessor_t.latestStart == -1)){
+                    predecessor_t.latestStart = t.earliestStart - t.time;
+                }
+            }
+        }
+    }
+
+    public void printOutSimulation(){
+
+        System.out.println("**** Simulation of the execution ****");
+
+        Queue<Task> inProgress = new LinkedList<>();
+
+        int curTime = 0;
+        while(!inProgress.isEmpty() || curTime == 0){
+
+            Queue<Task> starting = new LinkedList<>();
+            Queue<Task> finished = new LinkedList<>();
+
+
+            for (Task t: topSortedTasks) {
+                if (t.earliestStart == curTime) {
+                    starting.add(t);
+                }
+            }
+            for (Task t: inProgress) {
+                if (curTime == (t.earliestStart + t.time)) {
+                    finished.add(t);
+                }
+            }
+
+
+            if (starting.size() + finished.size()>0) {
+                System.out.println("\nTime: " + curTime);
+
+                for (Task t:starting) {
+                    System.out.println("Starting: " + t.id);
+                    inProgress.add(t);
+                }
+                for (Task t:finished) {
+                    System.out.println("Finished: " + t.id);
+                    inProgress.remove(t);
+                }
+                int currentStaff = 0;
+                for (Task t : inProgress) {
+                    currentStaff += t.staff;
+                }
+                System.out.println(currentStaff > 0 ? "Current staff: " + currentStaff : "");
+            }
+            curTime++;
+        }
+        System.out.println("**** Shortest possible project execution is "+ (curTime-1) + " ****");
     }
 
     @Override
