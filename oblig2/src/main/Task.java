@@ -61,9 +61,12 @@ public class Task {
 
         String outEdges_str = "";
         for (Task t: outEdges) {
+            if (t.id == -1 || t.id == -2){
+                continue;
+            }
             outEdges_str += t.id + "-" + t.name + ", ";
         }
-        if(!outEdges.isEmpty()){
+        if(!outEdges_str.isEmpty()){
             outEdges_str = outEdges_str.substring(0, outEdges_str.length()-2);
         } else {
             outEdges_str = "None";
