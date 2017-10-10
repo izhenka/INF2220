@@ -7,6 +7,7 @@ import java.util.*;
 public class ProjectPlanner {
 
     public  Task[] tasks;
+    public List<Task> topSortedTasks;
 
     public void loadProject(String fileName) throws Exception{
 
@@ -49,6 +50,8 @@ public class ProjectPlanner {
 
 
     public Boolean isRealizable(){
+
+        topSortedTasks = new ArrayList<Task>();
         Queue<Task> q = new LinkedList<Task>();
         int cnt = 0;
 
@@ -59,6 +62,7 @@ public class ProjectPlanner {
         }
         while(!q.isEmpty()){
             Task t = q.remove();
+            topSortedTasks.add(t);
             cnt++;
             for (Task adjacentT: t.outEdges) {
                 if(--adjacentT.cntPredecessors == 0){
@@ -83,6 +87,21 @@ public class ProjectPlanner {
                 }
             }
         }
+    }
+
+    public int findCompletionTime(){
+
+        topSortedTasks.get(0).earliestStart = 0;
+        for (Task t: topSortedTasks) {
+            for (Task adjacent_t: t.outEdges) {
+                if(t.earliestStart + t.time >adjacent_t.earliestStart){
+                    adjacent_t.earliestStart = t.earliestStart + t.time;
+                    adjacent_t.criticalPredecessor = t;
+                }
+            }
+        }
+
+        return 0;
     }
 
     @Override

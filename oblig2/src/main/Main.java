@@ -8,7 +8,7 @@ public class Main {
         try {
             //TODO change filename to app's argument
             //String filename = args[1];
-            pp.loadProject("buildhouse2.txt");
+            pp.loadProject("buildhouse1.txt");
         } catch (Exception e) {
             System.out.println("The project hasn't been loaded :(");
             e.printStackTrace();
@@ -17,14 +17,18 @@ public class Main {
         pp.fillOutEdges();
 
         if (!pp.isRealizable()){
-            System.out.println("Sorry, the project is not realizable :(");
+            System.out.println("The project is not realizable :(");
             return;
         }else{
             System.out.println("Yeeey, project is realizable!");
         }
 
+        pp.findCompletionTime();
+
+
+
         //plan
-        System.out.println("\n"+pp.toString());
+        System.out.println("\n"+pp.topSortedTasks);
 
 
 

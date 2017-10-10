@@ -1,0 +1,10 @@
+1)
+2) Acyclic graph:
+The new rule is to select vertices in topological order. The algorithm can be done in one pass, since the selections and updates can take place as the topological sort is being performed.
+This selection rule works because when a vertex v is selected, its distance, dv, can no longer be lowered, since by the topological ordering rule it has no incoming edges emanating from unknown nodes.
+There is no need for a priority queue with this selection rule; the running time is O(|E| + |V|), since the selection takes constant time.
+
+
+
+
+

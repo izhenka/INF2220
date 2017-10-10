@@ -9,10 +9,14 @@ import java.util.StringJoiner;
 public class Task {
     int id, time, staff;
     String name;
-    int earliestStart, latestStart;
+    int earliestStart = -1, latestStart = -1;
     List<Task> outEdges = new ArrayList<Task>();
     int cntPredecessors;
     List<Integer> predecessorsId;
+    Task criticalPredecessor;
+
+    int distance;
+    Task predecessor;
 
 
 
@@ -69,13 +73,13 @@ public class Task {
         return "\nTask{" +
                 "id=" + id +
                 ", time=" + time +
-                ", staff=" + staff +
-                ", name='" + name + '\'' +
+//                ", staff=" + staff +
+//                ", name='" + name + '\'' +
                 ", earliestStart=" + earliestStart +
-                ", latestStart=" + latestStart +
-                ", outEdges=" + outEdges_str +
-                ", cntPredecessors=" + cntPredecessors +
-                ", predecessorsId=" + predecessorsId +
+//                ", latestStart=" + latestStart +
+//                ", outEdges=" + outEdges_str +
+//                ", cntPredecessors=" + cntPredecessors +
+//                ", predecessorsId=" + predecessorsId +
                 '}';
     }
 }
