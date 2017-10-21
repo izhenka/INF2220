@@ -1,7 +1,15 @@
 package main;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Sortering {
+
+    final static int NUM_BIT = 2; //6-13 er best
+    final static int MIN_NUM = 9; // mellom 16 og 60, kvikksort bruker 47
+
 
     int findMax(int[] a) {
         int max = 0;
@@ -17,23 +25,36 @@ public class Sortering {
         int [] b = new int[a.length];
 
         int max = findMax(a);
+        int numbBits = findNumberBits(max);
+        int maskLength = Math.min(numbBits, NUM_BIT);
 
-        // a) finn ‘max’ verdi i a[]
-        // b) bestem numBit = høyeste (mest venstre) bit i ‘max’ som ==1
         // c) Første kall (rot-kallet) på VenstreRadix med a[], b[] , numBit, og lengden av første siffer
+        VenstreRadix(a, b, 0, a.length, numbBits-1, maskLength);
 
         double tid = (System.nanoTime() -tt)/1000000.0;
         testSort(a);
         return tid; // returnerer tiden i ms. det tok å sortere a, som nå er sortert og testet
-    } // end VRadixMulti
+    }
 
     // Sorter a[left..right] på siffer med start i bit: leftSortBit, og med lengde: maskLen bit,
-    void VenstreRadix ( int [] a, int [] b, int left, int right, int leftSortBit, int maskLen){
-//        int mask = (1<<maskLen]) - 1;
-//        int [] count = new int [mask+1];
+    void VenstreRadix ( int [] a, int [] b, int left, int right, int leftSortBit, int maskLength){
+        int mask = (1<<maskLength) - 1;
+        int [] count = new int [mask+1]; //array with maskLen**2 slots for all possible numbers in this digit
         //……………. Andre deklarasjoner ……………
 
+
+        System.out.println("mask: " + Integer.toBinaryString(mask));
+        List<Integer> testdigits = new ArrayList<>();
         // d) count[] =hvor mange det er med de ulike verdiene
+        int shift = leftSortBit - maskLength + 1;
+        for (int elem:a) {
+            testdigits.add((elem >> shift) & mask);
+            count[(elem >> shift) & mask]++;
+        }
+
+        Main.printArrayInBinary("testdigits", testdigits);
+        System.out.println(Arrays.toString(count));
+
         // av dette sifret I a [left..right]
         // e) Tell opp verdiene I count[] slik at count[i] sier hvor i b[] vi skal
         // flytte første element med verdien ‘i’ vi sorterer.
@@ -53,4 +74,12 @@ public class Sortering {
                 return;
             } }
     }
+
+
+    int findNumberBits(int number){
+        int numBits = 1;
+        while (number >= (1<<numBits)) numBits++;
+        return numBits;
+    }
 }
+

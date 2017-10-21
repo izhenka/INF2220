@@ -1,24 +1,28 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Main {
 
-    final static int NUM_BIT = 9; //6-13 er best
-    final static int MIN_NUM = 9; // mellom 16 og 60, kvikksort bruker 47
 
 
     public static void main(String[] args) {
 
-        int n = 50;
+        int n = 9;
         int[] a = makeRandomArray(n);
-        System.out.println(Arrays.toString(a));
+        printArrayInBinary("a", a);
+
 
         Sortering s = new Sortering();
         System.out.println("Max: " + s.findMax(a));
+        System.out.println("Bits: " + s.findNumberBits(s.findMax(a)));
 
-        s.testSort(a);
+        s.VRadixMulti(a);
+
+//        s.testSort(a);
     }
 
     public static int[] makeRandomArray(int arraySize){
@@ -31,6 +35,26 @@ public class Main {
             result[i] = random.nextInt(arraySize);
         }
         return result;
+    }
+
+    public static void printArrayInBinary(String label, List<Integer> array){
+
+        List<String> res = new ArrayList<>();
+        for (Integer e: array) {
+            res.add(Integer.toBinaryString(e));
+        }
+
+        System.out.println(label + ": " + res);
+    }
+
+    public static void printArrayInBinary(String label, int[] array){
+
+        List<String> res = new ArrayList<>();
+        for (int e: array) {
+            res.add(Integer.toBinaryString(e));
+        }
+
+        System.out.println(label + ": " + res);
     }
 
 }
