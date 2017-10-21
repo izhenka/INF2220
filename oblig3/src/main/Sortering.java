@@ -9,6 +9,7 @@ public class Sortering {
 
     final static int NUM_BIT = 2; //6-13 er best
     final static int MIN_NUM = 9; // mellom 16 og 60, kvikksort bruker 47
+    String indent = "\t";
 
 
     int findMax(int[] a) {
@@ -42,20 +43,23 @@ public class Sortering {
         if (left == right){
             return;
         }
+
+        indent+="\t";
+
         int mask = (1<<maskLength) - 1;
         int shift = leftSortBit - maskLength;
 
         int [] count = new int [mask+1]; //array with maskLen**2 slots for all possible numbers in this digit
         //……………. Andre deklarasjoner ……………
 
-        System.out.println("\n******VenstreRadix called : left:" + left + ", right:" + right +
-        "\n leftSortBit:" + leftSortBit + ", maskLength:" + maskLength);
+        System.out.println("\n" + indent + "******VenstreRadix called : left:" + left + ", right:" + right +
+        "\n" + indent + "leftSortBit + " + leftSortBit + ", maskLength:" + maskLength);
 
-        Main.printArrayInBinary("\na", a);
+        Main.printArrayInBinary("\n" + indent + "a", a);
 
 
         //test ->
-        System.out.println("mask: " + Integer.toBinaryString(mask) + ", shift: " + shift);
+        System.out.println(indent + "mask: " + Integer.toBinaryString(mask) + ", shift: " + shift);
         List<Integer> testdigits = new ArrayList<>();
         //test <-
 
@@ -69,8 +73,8 @@ public class Sortering {
         }
 
         //test ->
-        Main.printArrayInBinary("testdigits", testdigits);
-        System.out.println("count: " + Arrays.toString(count));
+        Main.printArrayInBinary(indent + "testdigits", testdigits);
+        System.out.println(indent + "count: " + Arrays.toString(count));
         //test <-
 
 
@@ -82,23 +86,23 @@ public class Sortering {
             count[i] = sum;
             sum+= countValue;
         }
-        System.out.println("summert count: " + Arrays.toString(count));
+        System.out.println(indent + "summert count: " + Arrays.toString(count));
 
 
         // f) Flytt tallene fra a[] til b[] sorter på dette sifferet I a[left..right] for
         //alle de ulike verdiene for dette sifferet
 
-        Main.printArrayInBinary("a", a);
+        Main.printArrayInBinary(indent + "a", a);
 
         for (int i = left; i < right; i++) {
             int digit = (a[i] >> shift) & mask;
-            System.out.println("a[" + i + "]:" + Integer.toBinaryString(a[i]) + ", digit "  + digit + ", left + count[digit] "  + (left + count[digit]));
+            System.out.println(indent  + "a[" + i + "]:" + Integer.toBinaryString(a[i]) + ", digit "  + digit + ", left + count[digit] "  + (left + count[digit]));
             b[left + count[digit]] = a[i];
             count[digit]++;
         }
         //test ->
-        System.out.println("etter f count: " + Arrays.toString(count));
-        Main.printArrayInBinary("b", b);
+        System.out.println(indent + "etter f count: " + Arrays.toString(count));
+        Main.printArrayInBinary(indent + "b", b);
         //test <-
 
 
@@ -106,20 +110,23 @@ public class Sortering {
         // på neste siffer (hvis vi ikke er ferdige) for alle verdiene vi har av nåværende siffer
         int bitsLeft = leftSortBit - maskLength;
         if (bitsLeft <= 0){
+            // Vurder når vi. skal kopiere tilbake b[] til a[] ??
+            for (int i = left; i < right; i++) {
+                a[i] = b[i];
+            }
+            indent = indent.substring(0, indent.length()-1);
             return;
         }
-        int start = 0;
+        int start = left;
         for (int i : count) {
-            VenstreRadix(b, a , start, i, bitsLeft, Math.min(bitsLeft, NUM_BIT));
+            VenstreRadix(b, a , start, left + i, bitsLeft, Math.min(bitsLeft, NUM_BIT));
             start = i;
         }
-        Main.printArrayInBinary("*****a end", a);
+        Main.printArrayInBinary(indent +"a end", a);
+        indent = indent.substring(0, indent.length()-1);
 
 
-        // Vurder når vi. skal kopiere tilbake b[] til a[] ??
-//        for (int i = 0; i < a.length; i++) {
-//            a[i] = b[i];
-//        }
+
 
     }// end VenstreRadix
 
