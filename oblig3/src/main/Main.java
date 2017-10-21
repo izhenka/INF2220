@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int n = 9;
+        int n = 20;
         int[] a = makeRandomArray(n);
         printArrayInBinary("a", a);
 
@@ -21,8 +21,6 @@ public class Main {
         System.out.println("Bits: " + s.findNumberBits(s.findMax(a)));
 
         s.VRadixMulti(a);
-
-//        s.testSort(a);
     }
 
     public static int[] makeRandomArray(int arraySize){
