@@ -11,16 +11,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int n = 20;
+        int n = 100;
         int[] a = makeRandomArray(n);
-        printArrayInBinary("a", a);
+        System.out.println(Arrays.toString(a));
 
 
         Sortering s = new Sortering();
-        System.out.println("Max: " + s.findMax(a));
-        System.out.println("Bits: " + s.findNumberBits(s.findMax(a)));
+        Sortering.debugPrint("Max: " + s.findMax(a));
+        Sortering.debugPrint("Bits: " + s.findNumberBits(s.findMax(a)));
 
         s.VRadixMulti(a);
+        if(s.testSort(a)){
+            System.out.println("Sorted!");
+        }
+        System.out.println(Arrays.toString(a));
+
     }
 
     public static int[] makeRandomArray(int arraySize){
@@ -35,24 +40,7 @@ public class Main {
         return result;
     }
 
-    public static void printArrayInBinary(String label, List<Integer> array){
 
-        List<String> res = new ArrayList<>();
-        for (Integer e: array) {
-            res.add(Integer.toBinaryString(e));
-        }
 
-        System.out.println(label + ": " + res);
-    }
-
-    public static void printArrayInBinary(String label, int[] array){
-
-        List<String> res = new ArrayList<>();
-        for (int e: array) {
-            res.add(Integer.toBinaryString(e));
-        }
-
-        System.out.println(label + ": " + res);
-    }
 
 }

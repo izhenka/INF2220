@@ -7,9 +7,11 @@ import java.util.List;
 
 public class Sortering {
 
-    final static int NUM_BIT = 2; //6-13 er best
+    final static int NUM_BIT = 6; //6-13 er best
     final static int MIN_NUM = 9; // mellom 16 og 60, kvikksort bruker 47
-    String indent = "\t";
+
+    final static boolean DEBUG = false;
+    static String indent = "\t";
 
 
     int findMax(int[] a) {
@@ -40,7 +42,12 @@ public class Sortering {
     // Sorter a[left..right] på siffer med start i bit: leftSortBit, og med lengde: maskLen bit,
     void VenstreRadix ( int [] a, int [] b, int left, int right, int leftSortBit, int maskLength){
 
-        if (left == right){
+        if ((right - left) == 0) {
+            return;
+        }
+
+        if ((right - left) == 1) {
+            b[left] = a[left];
             return;
         }
 
@@ -52,14 +59,15 @@ public class Sortering {
         int [] count = new int [mask+1]; //array with maskLen**2 slots for all possible numbers in this digit
         //……………. Andre deklarasjoner ……………
 
-        System.out.println("\n" + indent + "******VenstreRadix called : left:" + left + ", right:" + right +
-        "\n" + indent + "leftSortBit + " + leftSortBit + ", maskLength:" + maskLength);
+        debugPrint("\n");
+        debugPrint("******VenstreRadix called : left:" + left + ", right:" + right);
+        debugPrint("leftSortBit + " + leftSortBit + ", maskLength:" + maskLength);
 
-        Main.printArrayInBinary("\n" + indent + "a", a);
+        debugPrintArrayInBinary("a", a, left, right);
 
 
         //test ->
-        System.out.println(indent + "mask: " + Integer.toBinaryString(mask) + ", shift: " + shift);
+        debugPrint("mask: " + Integer.toBinaryString(mask) + ", shift: " + shift);
         List<Integer> testdigits = new ArrayList<>();
         //test <-
 
@@ -73,8 +81,8 @@ public class Sortering {
         }
 
         //test ->
-        Main.printArrayInBinary(indent + "testdigits", testdigits);
-        System.out.println(indent + "count: " + Arrays.toString(count));
+        debugPrintArrayInBinary("testdigits", testdigits);
+        debugPrint("count: " + Arrays.toString(count));
         //test <-
 
 
@@ -86,23 +94,23 @@ public class Sortering {
             count[i] = sum;
             sum+= countValue;
         }
-        System.out.println(indent + "summert count: " + Arrays.toString(count));
+        debugPrint("summert count: " + Arrays.toString(count));
 
 
         // f) Flytt tallene fra a[] til b[] sorter på dette sifferet I a[left..right] for
         //alle de ulike verdiene for dette sifferet
 
-        Main.printArrayInBinary(indent + "a", a);
+        debugPrintArrayInBinary("a", a,  left, right);
 
         for (int i = left; i < right; i++) {
             int digit = (a[i] >> shift) & mask;
-            System.out.println(indent  + "a[" + i + "]:" + Integer.toBinaryString(a[i]) + ", digit "  + digit + ", left + count[digit] "  + (left + count[digit]));
+            debugPrint("a[" + i + "]:" + Integer.toBinaryString(a[i]) + ", digit "  + digit + ", left + count[digit] "  + (left + count[digit]));
             b[left + count[digit]] = a[i];
             count[digit]++;
         }
         //test ->
-        System.out.println(indent + "etter f count: " + Arrays.toString(count));
-        Main.printArrayInBinary(indent + "b", b);
+        debugPrint("etter f count: " + Arrays.toString(count));
+        debugPrintArrayInBinary("b", b, left, right);
         //test <-
 
 
@@ -119,10 +127,13 @@ public class Sortering {
         }
         int start = left;
         for (int i : count) {
-            VenstreRadix(b, a , start, left + i, bitsLeft, Math.min(bitsLeft, NUM_BIT));
-            start = i;
+            int end = left + i;
+            if(end != start) {
+                VenstreRadix(b, a, start, left + i, bitsLeft, Math.min(bitsLeft, NUM_BIT));
+            }
+            start = end;
         }
-        Main.printArrayInBinary(indent +"a end", a);
+        debugPrintArrayInBinary("a end", a, left, right);
         indent = indent.substring(0, indent.length()-1);
 
 
@@ -131,13 +142,14 @@ public class Sortering {
     }// end VenstreRadix
 
 
-    void testSort(int [] a){
+    boolean testSort(int [] a){
         for (int i = 0; i< a.length-1;i++) {
             if (a[i] > a[i+1]){
                 System.out.println("SorteringsFEIL på: "+
                         i +" a["+i+"]:"+a[i]+" > a["+(i+1)+"]:"+a[i+1]);
-                return;
+                return false;
             } }
+        return true;
     }
 
 
@@ -146,5 +158,42 @@ public class Sortering {
         while (number >= (1<<numBits)) numBits++;
         return numBits;
     }
+
+    public static void debugPrint(String message){
+        if (DEBUG){
+            System.out.println(indent + message);
+        }
+    }
+
+    public static void debugPrintArrayInBinary(String label, int[] array, int left, int right){
+
+        if (!DEBUG){
+            return;
+        }
+
+
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            res.add(( i>= left && i<right ? "*" : "" ) + Integer.toBinaryString(array[i]));
+        }
+
+        System.out.println(indent + label + ": " + res);
+    }
+
+    public static void debugPrintArrayInBinary(String label, List<Integer> array){
+
+        if (!DEBUG){
+            return;
+        }
+
+        List<String> res = new ArrayList<>();
+        for (Integer e: array) {
+            res.add(Integer.toBinaryString(e));
+        }
+
+        System.out.println(indent + label + ": " + res);
+    }
+
 }
+
 
