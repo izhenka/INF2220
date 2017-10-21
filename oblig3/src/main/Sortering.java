@@ -42,24 +42,49 @@ public class Sortering {
         int [] count = new int [mask+1]; //array with maskLen**2 slots for all possible numbers in this digit
         //……………. Andre deklarasjoner ……………
 
-
+        //test ->
         System.out.println("mask: " + Integer.toBinaryString(mask));
         List<Integer> testdigits = new ArrayList<>();
+        //test <-
+
         // d) count[] =hvor mange det er med de ulike verdiene
+        // av dette sifret I a [left..right]
         int shift = leftSortBit - maskLength + 1;
         for (int elem:a) {
+            //test ->
             testdigits.add((elem >> shift) & mask);
+            //test <-
             count[(elem >> shift) & mask]++;
         }
 
+        //test ->
         Main.printArrayInBinary("testdigits", testdigits);
-        System.out.println(Arrays.toString(count));
+        System.out.println("count: " + Arrays.toString(count));
+        //test <-
 
-        // av dette sifret I a [left..right]
+
         // e) Tell opp verdiene I count[] slik at count[i] sier hvor i b[] vi skal
         // flytte første element med verdien ‘i’ vi sorterer.
+        int sum = 0;
+        for (int i=0; i< count.length ; i++){
+            int countValue = count[i];
+            count[i] = sum;
+            sum+= countValue;
+        }
+        System.out.println("summert count: " + Arrays.toString(count));
+
+
         // f) Flytt tallene fra a[] til b[] sorter på dette sifferet I a[left..right] for
         //alle de ulike verdiene for dette sifferet
+        for (int elem : a) {
+            int digit = (elem >> shift) & mask;
+            b[count[digit]] = elem;
+            count[digit]++;
+        }
+
+        Main.printArrayInBinary("b", b);
+
+
         // g) Kall enten innstikkSort eller rekursivt VenstreRadix
         // på neste siffer (hvis vi ikke er ferdige) for alle verdiene vi har av nåværende siffer
         // Vurder når vi. skal kopiere tilbake b[] til a[] ??
