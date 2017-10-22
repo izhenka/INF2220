@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int n = 100;
+        int n = 1000;
         int[] a = makeRandomArray(n);
         System.out.println(Arrays.toString(a));
 
@@ -19,6 +19,7 @@ public class Main {
         Sortering s = new Sortering();
         Sortering.debugPrint("Max: " + s.findMax(a));
         Sortering.debugPrint("Bits: " + s.findNumberBits(s.findMax(a)));
+
 
         s.VRadixMulti(a);
         if(s.testSort(a)){

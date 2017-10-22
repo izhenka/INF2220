@@ -10,7 +10,7 @@ public class Sortering {
     final static int NUM_BIT = 6; //6-13 er best
     final static int MIN_NUM = 9; // mellom 16 og 60, kvikksort bruker 47
 
-    final static boolean DEBUG = true;
+    final static boolean DEBUG = false;
     static String indent = "\t";
 
 
@@ -86,9 +86,7 @@ public class Sortering {
         //nothing more to sort in this bit, copying back to a
         int bitsLeft = leftSortBit - maskLength;
         if (bitsLeft <= 0){
-            for (int i = left; i < right; i++) {
-                a[i] = b[i];
-            }
+            copyArrayPart(b, a, left, right);
             debugDecreaseIndent();
             return;
         }
@@ -101,6 +99,9 @@ public class Sortering {
                 continue;
             }else if (end - start == 1) { //1 element doesn't need sorting
                 a[start] = b[start];
+            }else if (end - start > MIN_NUM){
+                insertSort(b, start, end);
+                copyArrayPart(b, a, left, right);
             }else{
                 VenstreRadix(b, a, start, left + i, bitsLeft, Math.min(bitsLeft, NUM_BIT));
             }
@@ -117,6 +118,30 @@ public class Sortering {
 
     }// end VenstreRadix
 
+
+    void insertSort(int[] array, int left, int right){
+
+        debugPrint("***Insert sort! left: " + left + ", right: " + right);
+
+        for (int i = left; i < right-1; i++) {
+            if (array[i] > array[i+1]){
+                int elemToMove = array[i+1];
+                int k = i;
+                do{
+                    array[k+1] = array[k];
+                    k--;
+                }while(k>=left && array[k]>elemToMove);
+
+                array[k+1] = elemToMove;
+            }
+        }
+    }
+
+    void copyArrayPart(int[] source, int[] dest, int left, int right){
+        for (int i = left; i < right; i++) {
+            dest[i] = source[i];
+        }
+    }
 
     boolean testSort(int [] a){
         for (int i = 0; i< a.length-1;i++) {
