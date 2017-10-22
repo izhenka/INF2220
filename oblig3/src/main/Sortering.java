@@ -24,9 +24,10 @@ public class Sortering {
     }
 
     double VRadixMulti(int [] a) {
-        long tt = System.nanoTime();
-        int [] b = new int[a.length];
 
+        long tt = System.nanoTime();
+
+        int [] b = new int[a.length];
         int max = findMax(a);
         int numbBits = findNumberBits(max);
         int maskLength = Math.min(numbBits, NUM_BIT);
@@ -34,8 +35,9 @@ public class Sortering {
         VenstreRadix(a, b, 0, a.length, numbBits, maskLength);
 
         double tid = (System.nanoTime() -tt)/1000000.0;
+
         testSort(a);
-        return tid; // returnerer tiden i ms. det tok å sortere a, som nå er sortert og testet
+        return tid;
     }
 
     // Sorter a[left..right] på siffer med start i bit: leftSortBit, og med lengde: maskLen bit,
@@ -108,13 +110,8 @@ public class Sortering {
             start = end;
         }
 
-
-
         debugPrintArrayInBinary("a end", a, left, right);
         debugDecreaseIndent();
-
-
-
 
     }// end VenstreRadix
 
@@ -131,6 +128,21 @@ public class Sortering {
                     array[k+1] = array[k];
                     k--;
                 }while(k>=left && array[k]>elemToMove);
+
+                array[k+1] = elemToMove;
+            }
+        }
+    }
+
+    void insertSort(double[] array){
+        for (int i = 0; i < array.length-1; i++) {
+            if (array[i] > array[i+1]){
+                double elemToMove = array[i+1];
+                int k = i;
+                do{
+                    array[k+1] = array[k];
+                    k--;
+                }while(k>=0 && array[k]>elemToMove);
 
                 array[k+1] = elemToMove;
             }
