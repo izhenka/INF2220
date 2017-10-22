@@ -10,7 +10,7 @@ public class Sortering {
     final static int NUM_BIT = 6; //6-13 er best
     final static int MIN_NUM = 9; // mellom 16 og 60, kvikksort bruker 47
 
-    final static boolean DEBUG = false;
+    final static boolean DEBUG = true;
     static String indent = "\t";
 
 
@@ -31,7 +31,6 @@ public class Sortering {
         int numbBits = findNumberBits(max);
         int maskLength = Math.min(numbBits, NUM_BIT);
 
-        // c) Første kall (rot-kallet) på VenstreRadix med a[], b[] , numBit, og lengden av første siffer
         VenstreRadix(a, b, 0, a.length, numbBits, maskLength);
 
         double tid = (System.nanoTime() -tt)/1000000.0;
@@ -42,99 +41,76 @@ public class Sortering {
     // Sorter a[left..right] på siffer med start i bit: leftSortBit, og med lengde: maskLen bit,
     void VenstreRadix ( int [] a, int [] b, int left, int right, int leftSortBit, int maskLength){
 
-        if ((right - left) == 0) {
-            return;
-        }
-
-        if ((right - left) == 1) {
-            b[left] = a[left];
-            return;
-        }
-
-        indent+="\t";
+        debugIncreaseIndent();
 
         int mask = (1<<maskLength) - 1;
         int shift = leftSortBit - maskLength;
-
         int [] count = new int [mask+1]; //array with maskLen**2 slots for all possible numbers in this digit
-        //……………. Andre deklarasjoner ……………
-
-        debugPrint("\n");
-        debugPrint("******VenstreRadix called : left:" + left + ", right:" + right);
-        debugPrint("leftSortBit + " + leftSortBit + ", maskLength:" + maskLength);
-
-        debugPrintArrayInBinary("a", a, left, right);
 
 
-        //test ->
-        debugPrint("mask: " + Integer.toBinaryString(mask) + ", shift: " + shift);
-        List<Integer> testdigits = new ArrayList<>();
-        //test <-
+        debug1(left, right, maskLength, mask, leftSortBit, a, shift, count);
 
-        // d) count[] =hvor mange det er med de ulike verdiene
-        // av dette sifret I a [left..right]
+
+        //counting number occurrences of each value in a
         for (int i = left; i < right; i++) {
-            //test ->
-            testdigits.add((a[i] >> shift) & mask);
-            //test <-
             count[(a[i] >> shift) & mask]++;
         }
 
-        //test ->
-        debugPrintArrayInBinary("testdigits", testdigits);
-        debugPrint("count: " + Arrays.toString(count));
-        //test <-
+
+        debug2(left, right, maskLength, mask, leftSortBit, a, shift, count);
 
 
-        // e) Tell opp verdiene I count[] slik at count[i] sier hvor i b[] vi skal
-        // flytte første element med verdien ‘i’ vi sorterer.
+        //summing up all values in count to find out position in b for each element in a
         int sum = 0;
         for (int i=0; i< count.length ; i++){
             int countValue = count[i];
             count[i] = sum;
             sum+= countValue;
         }
-        debugPrint("summert count: " + Arrays.toString(count));
+
+        debug3(left, right, maskLength, mask, leftSortBit, a, shift, count);
 
 
-        // f) Flytt tallene fra a[] til b[] sorter på dette sifferet I a[left..right] for
-        //alle de ulike verdiene for dette sifferet
-
-        debugPrintArrayInBinary("a", a,  left, right);
-
+        // Moving from a to b, using computed positions in count
         for (int i = left; i < right; i++) {
             int digit = (a[i] >> shift) & mask;
-            debugPrint("a[" + i + "]:" + Integer.toBinaryString(a[i]) + ", digit "  + digit + ", left + count[digit] "  + (left + count[digit]));
+            debug4(left, i, a, digit, count);
             b[left + count[digit]] = a[i];
             count[digit]++;
         }
-        //test ->
-        debugPrint("etter f count: " + Arrays.toString(count));
-        debugPrintArrayInBinary("b", b, left, right);
-        //test <-
 
 
-        // g) Kall enten innstikkSort eller rekursivt VenstreRadix
-        // på neste siffer (hvis vi ikke er ferdige) for alle verdiene vi har av nåværende siffer
+        debug5(left, right, maskLength, mask, leftSortBit, b, shift, count);
+
+
+        //nothing more to sort in this bit, copying back to a
         int bitsLeft = leftSortBit - maskLength;
         if (bitsLeft <= 0){
-            // Vurder når vi. skal kopiere tilbake b[] til a[] ??
             for (int i = left; i < right; i++) {
                 a[i] = b[i];
             }
-            indent = indent.substring(0, indent.length()-1);
+            debugDecreaseIndent();
             return;
         }
+
+        // start sorting on next digit
         int start = left;
         for (int i : count) {
             int end = left + i;
-            if(end != start) {
+            if(end == start) { //no elements
+                continue;
+            }else if (end - start == 1) { //1 element doesn't need sorting
+                a[start] = b[start];
+            }else{
                 VenstreRadix(b, a, start, left + i, bitsLeft, Math.min(bitsLeft, NUM_BIT));
             }
             start = end;
         }
+
+
+
         debugPrintArrayInBinary("a end", a, left, right);
-        indent = indent.substring(0, indent.length()-1);
+        debugDecreaseIndent();
 
 
 
@@ -152,11 +128,22 @@ public class Sortering {
         return true;
     }
 
-
-    int findNumberBits(int number){
+    int findNumberBits(int number) {
         int numBits = 1;
-        while (number >= (1<<numBits)) numBits++;
+        while (number >= (1 << numBits)) numBits++;
         return numBits;
+    }
+
+    public static void debugIncreaseIndent() {
+        if (DEBUG) {
+            indent += "\t";
+        }
+    }
+
+    public static void debugDecreaseIndent() {
+        if (DEBUG) {
+            indent = indent.substring(0, indent.length() - 1);
+        }
     }
 
     public static void debugPrint(String message){
@@ -192,6 +179,51 @@ public class Sortering {
         }
 
         System.out.println(indent + label + ": " + res);
+    }
+
+    private void debug1(int left, int right, int maskLength, int mask, int leftSortBit, int[] a, int shift, int[] count){
+
+        //debug ->
+        debugPrint("\n");
+        debugPrint("******VenstreRadix called : left:" + left + ", right:" + right);
+        debugPrint("leftSortBit + " + leftSortBit + ", maskLength:" + maskLength);
+        debugPrintArrayInBinary("a", a, left, right);
+        debugPrint("mask: " + Integer.toBinaryString(mask) + ", shift: " + shift);
+        //debug <-
+
+    }
+
+    private void debug2(int left, int right, int maskLength, int mask, int leftSortBit, int[] a, int shift, int[] count){
+        //debug ->
+        List<Integer> testdigits = new ArrayList<>();
+        for (int i = left; i < right; i++) {
+            testdigits.add((a[i] >> shift) & mask);
+        }
+        debugPrintArrayInBinary("testdigits", testdigits);
+        debugPrint("count: " + Arrays.toString(count));
+        //debug <-
+    }
+
+
+    private void debug3(int left, int right, int maskLength, int mask, int leftSortBit, int[] a, int shift, int[] count){
+        debugPrint("summert count: " + Arrays.toString(count));
+        debugPrintArrayInBinary("a", a,  left, right);
+    }
+
+
+
+    private void debug4(int left, int i, int[] a, int digit, int[] count){
+        debugPrint("a[" + i + "]:" + Integer.toBinaryString(a[i]) + ", digit "  + digit + ", left + count[digit] "  + (left + count[digit]));
+    }
+
+
+
+    private void debug5(int left, int right, int maskLength, int mask, int leftSortBit, int[] b, int shift, int[] count){
+        //debug ->
+        debugPrint("etter f count: " + Arrays.toString(count));
+        debugPrintArrayInBinary("b", b, left, right);
+        //debug <-
+
     }
 
 }
