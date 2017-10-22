@@ -22,19 +22,15 @@ public class Main {
         double[] times = new double[numIterations];
         Sortering s = new Sortering();
 
+        //(int)1E+7,
+        int[] nList = { (int)1E+6, (int)1E+5, (int)1E+4, 1000, 100};
 
-
-        //int[] nList = {(int)1E+7, (int)1E+6, (int)1E+5, (int)1E+4, 1000, 100};
-
-        int[] nList = {(int)1E+5, (int)1E+4, 1000, 100};
-
+        System.out.println("*** VenstreRadix time test: ***\n");
         for (int n : nList) {
             for (int i = 0; i < numIterations; i++) {
                 int[] a = makeRandomArray(n);
                 times[i] = s.VRadixMulti(a);
             }
-
-            System.out.println(Arrays.toString(times));
             s.insertSort(times);
             System.out.println("N=" + n + ", median: " + times[(numIterations/2)]);
         }

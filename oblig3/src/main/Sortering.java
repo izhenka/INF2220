@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Sortering {
 
-    final static int NUM_BIT = 6; //6-13 er best
-    final static int MIN_NUM = 9; // mellom 16 og 60, kvikksort bruker 47
+    final static int NUM_BIT = 9; //6-13 er best
+    final static int MIN_NUM = 20; // mellom 16 og 60, kvikksort bruker 47
 
     final static boolean DEBUG = false;
     static String indent = "\t";
