@@ -7,3 +7,16 @@ VRadixMulti:        0.002628    0.034206    0.271735    3.617132    36.980412  2
 Quicksort:          0.003223    0.044816    0.504324    6.338674    79.233941  930.952056
 Speedup:            1,226       1,310       1,856       1,752       2,143      3,377
 ------------------------------------------------------------------------------------------
+
+1) Venstre radix sortering er raskere fordi den har linear kompleksitet O(n):
+find max number: n/2
+VenstreRadix call: n*(number digits)
+n/2 + n*(number digits) = O(n)
++ vi bruker Innstikksort på den mest effektive størrelsen for den algoritmen.
+
+Mens QuickSort har kompleksitet på O(n log n) som resulterer i at kjøretiden stiger raskere.
+
+
+2) Jeg synes at min implementasjon av VenstreRadix er stabil.
+Fordi jeg bruker en ekstra array og flytter (like)elementer dit i samme rekkefølge som de er plassert i den opprinelige arrayen.
+Innstikksort er også stabil. Så hele algoritmen må være stabil.
