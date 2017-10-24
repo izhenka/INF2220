@@ -11,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         timeMeasuring();
 
     }
@@ -23,7 +22,7 @@ public class Main {
         Sortering s = new Sortering();
 
         //(int)1E+7,
-        int[] nList = { (int)1E+6, (int)1E+5, (int)1E+4, 1000, 100};
+        int[] nList = {(int)1E+7, (int)1E+6, (int)1E+5, (int)1E+4, 1000, 100};
 
         System.out.println("*** VenstreRadix time test: ***\n");
         for (int n : nList) {
@@ -31,13 +30,29 @@ public class Main {
                 int[] a = makeRandomArray(n);
                 times[i] = s.VRadixMulti(a);
             }
-            s.insertSort(times);
+            insertSort(times);
+            System.out.println("N=" + n + ", median: " + times[(numIterations/2)]);
+        }
+
+
+        System.out.println("*** KvikkSort time test: ***\n");
+        for (int n : nList) {
+            for (int i = 0; i < numIterations; i++) {
+                int[] a = makeRandomArray(n);
+                long tt = System.nanoTime();
+                Arrays.sort(a);
+                double tid = (System.nanoTime() -tt)/1000000.0;
+                times[i] = tid;
+            }
+            insertSort(times);
             System.out.println("N=" + n + ", median: " + times[(numIterations/2)]);
         }
 
 
 
     }
+
+
 
     public static void test(){
 
@@ -73,6 +88,21 @@ public class Main {
     }
 
 
+
+    static void insertSort(double[] array){
+        for (int i = 0; i < array.length-1; i++) {
+            if (array[i] > array[i+1]){
+                double elemToMove = array[i+1];
+                int k = i;
+                do{
+                    array[k+1] = array[k];
+                    k--;
+                }while(k>=0 && array[k]>elemToMove);
+
+                array[k+1] = elemToMove;
+            }
+        }
+    }
 
 
 }
