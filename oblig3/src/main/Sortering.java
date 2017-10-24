@@ -10,8 +10,11 @@ public class Sortering {
     final static int NUM_BIT = 6; //6-13 er best
     final static int MIN_NUM = 60; // mellom 16 og 60, kvikksort bruker 47
 
+    // debug ->
     final static boolean DEBUG = false;
     static String indent = "\t";
+    // debug <-
+
 
 
     int findMax(int[] a) {
@@ -36,7 +39,7 @@ public class Sortering {
 
         double tid = (System.nanoTime() -tt)/1000000.0;
 
-//        testSort(a);
+        testSort(a);
         return tid;
     }
 
@@ -136,6 +139,9 @@ public class Sortering {
         return numBits;
     }
 
+
+
+    // debug ->
     public static void debugIncreaseIndent() {
         if (DEBUG) {
             indent += "\t";
@@ -182,6 +188,7 @@ public class Sortering {
 
         System.out.println(indent + label + ": " + res);
     }
+    // debug <-
 
 
 }

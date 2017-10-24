@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        test(1000);
         timeMeasuring();
 
     }
@@ -24,7 +25,7 @@ public class Main {
         //(int)1E+7,
         int[] nList = {(int)1E+7, (int)1E+6, (int)1E+5, (int)1E+4, 1000, 100};
 
-        System.out.println("*** VenstreRadix time test: ***\n");
+        System.out.println("\n*** VenstreRadix time test: ***\n");
         for (int n : nList) {
             for (int i = 0; i < numIterations; i++) {
                 int[] a = makeRandomArray(n);
@@ -35,7 +36,7 @@ public class Main {
         }
 
 
-        System.out.println("*** KvikkSort time test: ***\n");
+        System.out.println("\n*** KvikkSort time test: ***\n");
         for (int n : nList) {
             for (int i = 0; i < numIterations; i++) {
                 int[] a = makeRandomArray(n);
@@ -54,9 +55,11 @@ public class Main {
 
 
 
-    public static void test(){
+    public static void test(int n){
 
-        int n = 10;
+        System.out.println("Test on " + n);
+
+
         int[] a = makeRandomArray(n);
         System.out.println(Arrays.toString(a));
 
