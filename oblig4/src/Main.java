@@ -2,6 +2,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -22,7 +23,12 @@ public class Main {
         System.out.println("haystack:\t" + haystack);
         System.out.println("needle:\t\t" + needle);
 
-        Matcher matcher = new Matcher(haystack, needle);
+        ArrayList<Integer> res = new Matcher().findAll(haystack, needle);
+        if (res.isEmpty()){
+            System.out.println("Matches not found.");
+        }else{
+            System.out.println("Matches found: " + res);
+        }
 
     }
 
