@@ -23,14 +23,16 @@ public class Main {
         System.out.println("haystack:\t" + haystack);
         System.out.println("needle:\t\t" + needle);
 
-        ArrayList<Integer> res = new Matcher().findAll(haystack, needle);
+        Matcher matcher = new Matcher();
+        ArrayList<Integer> res = matcher.findAll(haystack, needle);
         if (res.isEmpty()){
             System.out.println("Matches not found.");
         }else{
-            System.out.println("Matches found: " + res);
+            matcher.prettyPrintMatches(res, haystack, needle);
         }
 
     }
+
 
 
     //from https://stackoverflow.com/questions/3402735/what-is-simplest-way-to-read-a-file-into-string
