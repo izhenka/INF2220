@@ -6,7 +6,6 @@ public class Matcher {
     static final char WILDCARD = '_';
 
     public int find(String haystack, String needle){
-//        System.out.println("find haystack " + haystack);
         return boyer_moore_horspool(needle.toCharArray(), haystack.toCharArray());
     }
 
@@ -31,9 +30,6 @@ public class Matcher {
         if ( needle.length > haystack.length ){ return -1; }
         if ( needle.length == 0 ){ return -1; }
         int[] bad_shift = new int[CHAR_MAX]; // 256
-//        for(int i = 0; i < CHAR_MAX; i++){
-//            bad_shift[i] = needle.length;
-//        }
         int offset = 0, scan = 0;
         int last = needle.length - 1;
         int maxoffset = haystack.length - needle.length;
@@ -42,16 +38,11 @@ public class Matcher {
         }
 
         int maxShift = (bad_shift[WILDCARD] == 0 ? needle.length : bad_shift[WILDCARD]);
-//        System.out.println("maxShift " + maxShift);
         for(int i = 0; i < CHAR_MAX; i++){
             if (bad_shift[i]== 0 || bad_shift[i]>maxShift){
                 bad_shift[i] = maxShift;
             }
         }
-
-//        for (char c : needle) {
-//            System.out.println("" + c + ": " + bad_shift[c]);
-//        }
 
 
         while(offset <= maxoffset){
@@ -66,8 +57,6 @@ public class Matcher {
     }
 
     private boolean isMatch(char[] needle, char[] haystack, int scan, int offset){
-//        System.out.println("[scan] " + scan + ", offset " + offset + ", haystack[scan+offset] " + haystack[scan+offset]);
-//        System.out.println("needle[scan] " + needle[scan] + " = wc " + (needle[scan] == WILDCARD));
         return needle[scan] == haystack[scan+offset] || needle[scan] == WILDCARD;
 
     }

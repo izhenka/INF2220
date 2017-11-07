@@ -46,3 +46,10 @@ The credits are in comments in the code
 (boyer_moore_horspool() is based on code from lecture,
 readFileIntoString() is based on
 https://stackoverflow.com/questions/3402735/what-is-simplest-way-to-read-a-file-into-string)
+
+8. Testing is done in MatcherTest class which is being run in Main:
+
+        //test ->
+        MatcherTest matcherTest = new MatcherTest();
+        matcherTest.test();
+        //test <-
