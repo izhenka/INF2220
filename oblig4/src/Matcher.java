@@ -29,6 +29,7 @@ public class Matcher {
     //based on code from lecture
     private int boyer_moore_horspool(char[] needle, char[] haystack){
         if ( needle.length > haystack.length ){ return -1; }
+        if ( needle.length == 0 ){ return -1; }
         int[] bad_shift = new int[CHAR_MAX]; // 256
 //        for(int i = 0; i < CHAR_MAX; i++){
 //            bad_shift[i] = needle.length;
@@ -72,15 +73,25 @@ public class Matcher {
     }
 
 
-    public void prettyPrintMatches(ArrayList<Integer> indexes, String haystack, String needle){
+    public void prettyPrintMatches(String haystack, String needle){
 
+        ArrayList<Match> matches = findMatches(haystack, needle);
+
+        if (matches.isEmpty()) {
+            System.out.println("Matches not found.");
+        } else {
+            System.out.println("Matches found:" + matches);
+        }
+    }
+
+    public ArrayList<Match> findMatches(String haystack, String needle){
         ArrayList<Match> result = new ArrayList<>();
+        ArrayList<Integer> indexes = findAll(haystack, needle);
         for (Integer index : indexes) {
             String match = haystack.substring(index, index + needle.length());
             result.add(new Match(index, match));
         }
-
-        System.out.println("Matches found:" + result);
+        return result;
     }
 
 }

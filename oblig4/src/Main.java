@@ -3,12 +3,17 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException{
+    public static void main(String[] args){
 
+        //test ->
+        MatcherTest matcherTest = new MatcherTest();
+        matcherTest.test();
+        //test <-
 
         String haystack;
         String needle;
@@ -18,18 +23,16 @@ public class Main {
         } catch (FileNotFoundException e){
             System.out.println("Error! " + e.getMessage());
             return;
+        } catch (NoSuchElementException ne){
+            System.out.println("Haystack or needle is empty, no match");
+            return;
         }
 
         System.out.println("haystack:\t" + haystack);
         System.out.println("needle:\t\t" + needle);
 
         Matcher matcher = new Matcher();
-        ArrayList<Integer> res = matcher.findAll(haystack, needle);
-        if (res.isEmpty()){
-            System.out.println("Matches not found.");
-        }else{
-            matcher.prettyPrintMatches(res, haystack, needle);
-        }
+        matcher.prettyPrintMatches(haystack, needle);
 
     }
 
